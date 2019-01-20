@@ -11,9 +11,6 @@ import news.browser.base.BaseViewHolder
 import news.browser.module.news.model.NewsBean
 import news.browser.module.web.WebActivity
 
-/**
- * Created by Jim on 2017/12/5.
- */
 class NewsAdapter(var datas: ArrayList<NewsBean>, var context: Context) : RecyclerView.Adapter<BaseViewHolder>() {
 
     private var footers: SparseArray<View> = SparseArray()

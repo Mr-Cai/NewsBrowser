@@ -1,18 +1,16 @@
 package news.browser.module.home
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 import news.browser.R
-import news.browser.base.BaseActivity
 
-class MainActivity : BaseActivity(), MainActivityView {
+class MainActivity : AppCompatActivity(), MainActivityView {
 
     private lateinit var adapter: HomeVpAdapter
     private lateinit var fragments: List<Fragment>
     private lateinit var presenter: MainPresenter
-
-    override fun layoutId(): Int = R.layout.activity_main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

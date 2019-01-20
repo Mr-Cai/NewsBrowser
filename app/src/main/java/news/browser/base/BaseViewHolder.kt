@@ -1,5 +1,3 @@
-@file:Suppress("UNCHECKED_CAST")
-
 package news.browser.base
 
 import android.content.Context
@@ -31,7 +29,7 @@ class BaseViewHolder(itemView: View, val context: Context) : RecyclerView.ViewHo
 
     fun setImageWithUrl(viewId: Int, url: String) {
         val options = RequestOptions().centerCrop().placeholder(R.mipmap.icon).error(R.mipmap.icon)
-        Glide.with(context).load(url).apply(options).into(getView<ImageView>(viewId))
+        Glide.with(context).load(url).apply(options).into(getView(viewId))
     }
 
     fun setOnClickListener(viewId: Int, listener: View.OnClickListener) {

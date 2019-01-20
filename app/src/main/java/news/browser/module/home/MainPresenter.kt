@@ -13,5 +13,4 @@ class MainPresenter(private val view: MainActivityView) {
         }
         view.onFragmentsFetched(fragments)
     }
-
 }

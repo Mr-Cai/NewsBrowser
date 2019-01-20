@@ -46,7 +46,7 @@ open class NewsFragment : BaseLazyFragment(), INewsView, SwipeRefreshLayout.OnRe
     }
 
     override fun lazyLoad() {
-        if (!isPrepared or !isVisbileToUser) return
+        if (!isPrepared or !isVisibleToUser) return
         initData()
         initViews()
         mPresenter?.fetchNews(newsType, page, num)
