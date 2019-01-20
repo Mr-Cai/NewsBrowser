@@ -35,9 +35,7 @@ open class NewsFragment : BaseLazyFragment(), INewsView, SwipeRefreshLayout.OnRe
 
     private var isPrepared: Boolean = false
 
-    override fun getContentId(): Int {
-        return R.layout.fragment_news
-    }
+    override fun getContentId() = R.layout.fragment_news
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,11 +44,15 @@ open class NewsFragment : BaseLazyFragment(), INewsView, SwipeRefreshLayout.OnRe
     }
 
     override fun lazyLoad() {
-        if (!isPrepared or !isVisibleToUser) return
-        initData()
-        initViews()
-        mPresenter?.fetchNews(newsType, page, num)
-        isPrepared = false
+        when {
+            !isPrepared or !isVisibleToUser -> return
+            else -> {
+                initData()
+                initViews()
+                mPresenter?.fetchNews(newsType, page, num)
+                isPrepared = false
+            }
+        }
     }
 
     var totalItemCount: Int = 0
@@ -64,10 +66,13 @@ open class NewsFragment : BaseLazyFragment(), INewsView, SwipeRefreshLayout.OnRe
         val mScrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if (RecyclerView.SCROLL_STATE_IDLE == newState) {
-                    if (!isRefresh && totalItemCount <= lastVisibleItem + 1 && totalItemCount > visibleItemCount && visibleItemCount > 0) {
-                        this@NewsFragment.page++
-                        mPresenter?.fetchNews(newsType, page, num)
+                when (newState) {
+                    RecyclerView.SCROLL_STATE_IDLE -> when {
+                        !isRefresh && totalItemCount <= lastVisibleItem + 1 && totalItemCount >
+                                visibleItemCount && visibleItemCount > 0 -> {
+                            this@NewsFragment.page++
+                            mPresenter?.fetchNews(newsType, page, num)
+                        }
                     }
                 }
             }
@@ -110,7 +115,6 @@ open class NewsFragment : BaseLazyFragment(), INewsView, SwipeRefreshLayout.OnRe
     override fun onNewsFetchedFailed(throwable: Throwable) {
         swl?.isRefreshing = false
         Log.d("TAG", "get resp error: " + throwable.toString())
-
     }
 
     override fun onRefresh() {

@@ -10,10 +10,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import news.browser.R
 
-class BaseViewHolder(itemView: View, val context: Context) : RecyclerView.ViewHolder(itemView) {
+class BaseViewHolder(itemView: View, private val context: Context) : RecyclerView.ViewHolder(itemView) {
     private var mViews: SparseArray<View> = SparseArray()
 
 
+    @Suppress("UNCHECKED_CAST")
     private fun <T> getView(viewId: Int): T {
         var v = mViews.get(viewId)
         if (v == null) {

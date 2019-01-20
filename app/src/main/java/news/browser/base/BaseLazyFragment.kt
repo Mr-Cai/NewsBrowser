@@ -16,20 +16,21 @@ open class BaseLazyFragment : Fragment() {
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
-        if (userVisibleHint) {
-            this.isVisibleToUser = true
-            onVisible()
-        } else {
-            this.isVisibleToUser = false
-            onInvisible()
+        when {
+            userVisibleHint -> {
+                this.isVisibleToUser = true
+                onVisible()
+            }
+            else -> {
+                this.isVisibleToUser = false
+                onInvisible()
+            }
         }
     }
 
-    open fun onVisible() {
-        lazyLoad()
-    }
+    open fun onVisible() = lazyLoad()
 
-    open fun lazyLoad() {}
+    open fun lazyLoad() = Unit
 
-    open fun onInvisible() {}
+    open fun onInvisible() = Unit
 }

@@ -22,16 +22,17 @@ object RetrofitUtils {
     private val okHttp: OkHttpClient
         get() {
             val builder = OkHttpClient.Builder()
-            if (BuildConfig.DEBUG) {
-                builder.connectTimeout(5, TimeUnit.SECONDS)
-                        .readTimeout(5, TimeUnit.SECONDS)
-                        .writeTimeout(5, TimeUnit.SECONDS)
-                builder.addInterceptor { chain ->
-                    Log.i("调试", chain.request().toString())
-                    chain.proceed(chain.request())
+            when {
+                BuildConfig.DEBUG -> {
+                    builder.connectTimeout(5, TimeUnit.SECONDS)
+                            .readTimeout(5, TimeUnit.SECONDS)
+                            .writeTimeout(5, TimeUnit.SECONDS)
+                    builder.addInterceptor { chain ->
+                        Log.i("调试", chain.request().toString())
+                        chain.proceed(chain.request())
+                    }
                 }
-            } else {
-                builder.connectTimeout(15, TimeUnit.SECONDS)
+                else -> builder.connectTimeout(15, TimeUnit.SECONDS)
                         .readTimeout(15, TimeUnit.SECONDS)
                         .writeTimeout(15, TimeUnit.SECONDS)
             }
@@ -39,8 +40,8 @@ object RetrofitUtils {
         }
 
     private fun getRetrofit(): Retrofit {
-        if (retrofit == null) {
-            retrofit = Retrofit.Builder()
+        when (retrofit) {
+            null -> retrofit = Retrofit.Builder()
                     .baseUrl(Constant.baseUrl)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
@@ -65,17 +66,17 @@ object RetrofitUtils {
         for (filed in fields) {
             val isAccess = filed.isAccessible
             filed.isAccessible = true
-            if (filed.get(command) != null) {
-                list.add(MapFiled(filed.name, filed.get(command).toString()))
+            when {
+
+                filed.get(command) != null -> list.add(MapFiled(filed.name, filed.get(command).toString()))
             }
             filed.isAccessible = isAccess
         }
         return list
     }
 
-    fun fetchNews(path: String, cmd: BaseCommand): Observable<BaseBean<List<NewsBean>>> {
-        return getRetrofit().create(NetApi::class.java).fetchNews(path, createMaps(createListFiled(cmd)))
-    }
+    fun fetchNews(path: String, cmd: BaseCommand) =
+            getRetrofit().create(NetApi::class.java).fetchNews(path, createMaps(createListFiled(cmd)))
 
     fun fetchWorldNews(cmd: BaseCommand): Observable<BaseBean<List<NewsBean>>> {
         return getRetrofit().create(NetApi::class.java).fetchWorldNews(createMaps(createListFiled(cmd)))

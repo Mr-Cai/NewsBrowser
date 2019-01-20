@@ -35,6 +35,14 @@ class WebActivity : AppCompatActivity() {
         webSettings.setAppCacheEnabled(true)
         web_view.loadUrl(url)
         web_view.webViewClient = Client()
+        web_view.setOnLongClickListener {
+            Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, url)
+            }
+            startActivity(Intent.createChooser(intent, "分享一则新闻"))
+            false
+        }
     }
 
     override fun onDestroy() {

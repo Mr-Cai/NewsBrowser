@@ -22,9 +22,7 @@ class NewsAdapter(var datas: ArrayList<NewsBean>, var context: Context) : Recycl
         notifyItemRangeChanged(this.datas.size - data.size, data.size)
     }
 
-    fun addFooters(view: View) {
-        footers.put(baseItemFooter + footers.size(), view)
-    }
+    fun addFooters(view: View) = footers.put(baseItemFooter + footers.size(), view)
 
     fun clearData() {
         datas.clear()
@@ -42,36 +40,27 @@ class NewsAdapter(var datas: ArrayList<NewsBean>, var context: Context) : Recycl
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        if (isHeaderView(position)) {
-            return
-        } else if (isFooterView(position)) {
-            return
+        when {
+            isHeaderView(position) -> return
+            isFooterView(position) -> return
+            else -> {
+                holder.setText(R.id.news_title, datas[position].title)
+                holder.setText(R.id.news_time, datas[position].ctime)
+                holder.setImageWithUrl(R.id.news_head_img, datas[position].picUrl)
+                holder.setOnClickListener(R.id.news_layout, View.OnClickListener { WebActivity.start(context, datas[position].url) })
+            }
         }
-        holder.setText(R.id.news_title, datas[position].title)
-        holder.setText(R.id.news_time, datas[position].ctime)
-        holder.setImageWithUrl(R.id.news_head_img, datas[position].picUrl)
-        holder.setOnClickListener(R.id.news_layout, View.OnClickListener { WebActivity.start(context, datas[position].url) })
     }
 
-    override fun getItemCount(): Int {
-        return datas.size + headers.size() + footers.size()
-    }
+    override fun getItemCount() = datas.size + headers.size() + footers.size()
 
-    private fun isHeaderView(position: Int): Boolean {
-        return position < headers.size()
-    }
+    private fun isHeaderView(position: Int) = position < headers.size()
 
-    private fun isFooterView(position: Int): Boolean {
-        return position >= headers.size() + datas.size
-    }
+    private fun isFooterView(position: Int) = position >= headers.size() + datas.size
 
-    override fun getItemViewType(position: Int): Int {
-        if (isFooterView(position)) {
-            return footers.keyAt(position - datas.size - headers.size())
-        } else if (isHeaderView(position)) {
-            return headers.keyAt(position)
-        }
-        return super.getItemViewType(position)
+    override fun getItemViewType(position: Int) = when {
+        isFooterView(position) -> footers.keyAt(position - datas.size - headers.size())
+        isHeaderView(position) -> headers.keyAt(position)
+        else -> super.getItemViewType(position)
     }
-
 }
