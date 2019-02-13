@@ -1,16 +1,14 @@
 package news.browser.base
 
-import android.content.Context
 import android.util.SparseArray
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import news.browser.R
 
-class BaseViewHolder(itemView: View, private val context: Context) : RecyclerView.ViewHolder(itemView) {
+class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private var mViews: SparseArray<View> = SparseArray()
 
 
@@ -30,7 +28,7 @@ class BaseViewHolder(itemView: View, private val context: Context) : RecyclerVie
 
     fun setImageWithUrl(viewId: Int, url: String) {
         val options = RequestOptions().centerCrop().placeholder(R.mipmap.icon).error(R.mipmap.icon)
-        Glide.with(context).load(url).apply(options).into(getView(viewId))
+        Glide.with(itemView.context).load(url).apply(options).into(getView(viewId))
     }
 
     fun setOnClickListener(viewId: Int, listener: View.OnClickListener) {

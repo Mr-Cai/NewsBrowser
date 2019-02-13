@@ -45,20 +45,22 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/news_head_img"
         app:layout_constraintEnd_toEndOf="@+id/news_title"
-        app:layout_constraintStart_toStartOf="@+id/news_title"
         tools:ignore="RelativeOverlap"
         tools:layout_conversion_wrapHeight="43"
         tools:layout_conversion_wrapWidth="32"
         tools:text="2019-1-20" />
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/line_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_conversion_wrapHeight="1"
-        tools:layout_conversion_wrapWidth="1059" />
+    <TextView
+        android:id="@+id/descTxT"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="viewEnd"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/news_head_img"
+        app:layout_constraintStart_toStartOf="@+id/news_title"
+        tools:ignore="RelativeOverlap"
+        tools:layout_conversion_wrapHeight="43"
+        tools:layout_conversion_wrapWidth="32"
+        tools:text="BBC新闻" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
