@@ -1,7 +1,7 @@
 package news.browser.module.news
 
+import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import news.browser.R
@@ -21,17 +21,19 @@ class NewsAdapter(private var news: ArrayList<NewsBean>) :
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            BaseViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_news, parent, false))
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = BaseViewHolder(LayoutInflater
+            .from(parent.context).inflate(R.layout.item_news, parent, false))
     override fun getItemCount() = news.size
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+        val context = holder.itemView.context
         holder.setText(R.id.news_title, news[position].title)
-        holder.setText(R.id.news_time, news[position].ctime)
+        holder.setText(R.id.news_time, news[position].updateTime)
         holder.setImageWithUrl(R.id.news_head_img, news[position].picUrl)
-        holder.setOnClickListener(R.id.news_layout, View.OnClickListener {
-            WebActivity.start(holder.itemView.context, news[position].url)
-        })
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, WebActivity::class.java)
+            intent.putExtra("url", news[position].url)
+            context.startActivity(intent)
+        }
     }
 }

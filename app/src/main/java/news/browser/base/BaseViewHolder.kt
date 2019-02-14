@@ -30,9 +30,4 @@ class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val options = RequestOptions().centerCrop().placeholder(R.mipmap.icon).error(R.mipmap.icon)
         Glide.with(itemView.context).load(url).apply(options).into(getView(viewId))
     }
-
-    fun setOnClickListener(viewId: Int, listener: View.OnClickListener) {
-        getView<View>(viewId).setOnClickListener(listener)
-    }
-
 }

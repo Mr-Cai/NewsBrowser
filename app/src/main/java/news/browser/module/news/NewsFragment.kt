@@ -106,7 +106,7 @@ open class NewsFragment : BaseLazyFragment(), INewsView {
         when (page) {
             0 -> adapter!!.clearData()
         }
-        adapter!!.addData(resp.newslist)
+        adapter!!.addData(resp.newsData)
     }
 
     override fun onNewsFetchedFailed(throwable: Throwable) = Unit
