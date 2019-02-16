@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_news.view.*
@@ -31,6 +32,7 @@ class NewsAdapter(private var news: ArrayList<NewsBean>) :
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         val context = holder.itemView.context
         val itemView = holder.itemView
+        itemView.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_slide_in_bottom))
         itemView.descTxT.text = news[position].description
         itemView.titleTxT.text = news[position].title
         itemView.updateTimeTxT.text = news[position].updateTime
