@@ -1,4 +1,4 @@
-package news.browser.module.news.model
+package news.browser.model
 
 import com.google.gson.annotations.SerializedName
 
@@ -22,3 +22,7 @@ open class NewsCommand(
         var num: Int,
         val key: String = "53a9f2b7b849346cb13fb4b56cac9ec8"
 )
+class MapFiled(private val key: String, private val value: String) {
+        fun getKey(): String = key
+        fun getValue(): String = value
+}

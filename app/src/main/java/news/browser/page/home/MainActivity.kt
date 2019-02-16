@@ -1,11 +1,11 @@
-package news.browser.module.home
+package news.browser.page.home
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 import news.browser.R
-import news.browser.common.net.IMainPage
+import news.browser.utils.IMainPage
 
 class MainActivity : AppCompatActivity(), IMainPage {
 
@@ -23,13 +23,12 @@ class MainActivity : AppCompatActivity(), IMainPage {
     private fun initData() {
         presenter = MainPresenter(this)
         fragments = ArrayList()
-        presenter.fetchFragments(7)
+        presenter.fetchFragments(8)
     }
 
     private fun initView() {
         adapter = ViewPagerAdapter(supportFragmentManager, fragments)
         vp.adapter = adapter
-        vp.offscreenPageLimit = 5
         tabLayout.setupWithViewPager(vp)
     }
 

@@ -1,9 +1,9 @@
-package news.browser.common.net
+package news.browser.utils
 
 import androidx.fragment.app.Fragment
 import io.reactivex.Observable
-import news.browser.module.news.model.BaseBean
-import news.browser.module.news.model.NewsBean
+import news.browser.model.BaseBean
+import news.browser.model.NewsBean
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.QueryMap

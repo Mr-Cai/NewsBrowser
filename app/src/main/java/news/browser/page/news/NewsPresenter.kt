@@ -1,11 +1,11 @@
-package news.browser.module.news
+package news.browser.page.news
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import news.browser.common.net.INewsView
-import news.browser.common.utils.RetrofitUtils
-import news.browser.config.Constant
-import news.browser.module.news.model.NewsCommand
+import news.browser.utils.INewsView
+import news.browser.utils.RetrofitUtils
+import news.browser.utils.Constant
+import news.browser.model.NewsCommand
 
 class NewsPresenter(private val view: INewsView) {
     fun fetchNews(newType: Int, page: Int, num: Int) {

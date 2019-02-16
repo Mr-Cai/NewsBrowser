@@ -1,11 +1,9 @@
-package news.browser.common.utils
+package news.browser.utils
 
 import android.util.Log
 import news.browser.BuildConfig
-import news.browser.common.net.MapFiled
-import news.browser.common.net.NetApi
-import news.browser.config.Constant
-import news.browser.module.news.model.NewsCommand
+import news.browser.model.MapFiled
+import news.browser.model.NewsCommand
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -29,9 +27,9 @@ object RetrofitUtils {
                     }
                 }
                 else -> okHttpClientBuilder.apply {
-                    connectTimeout(8, TimeUnit.SECONDS)
-                    readTimeout(8, TimeUnit.SECONDS)
-                    writeTimeout(8, TimeUnit.SECONDS)
+                    connectTimeout(5, TimeUnit.SECONDS)
+                    readTimeout(5, TimeUnit.SECONDS)
+                    writeTimeout(5, TimeUnit.SECONDS)
                 }
             }
             return okHttpClientBuilder.build()
@@ -64,3 +62,4 @@ object RetrofitUtils {
             .build().create(NetApi::class.java)
             .fetchNews(path, createMaps(createListFiled(cmd)))
 }
+

@@ -1,4 +1,4 @@
-package news.browser.module.news
+package news.browser.page.news
 
 import android.os.Bundle
 import android.os.Handler
@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_news.*
 import news.browser.R
 import news.browser.base.BaseLazyFragment
-import news.browser.common.net.INewsView
-import news.browser.module.news.model.BaseBean
-import news.browser.module.news.model.NewsBean
+import news.browser.utils.INewsView
+import news.browser.model.BaseBean
+import news.browser.model.NewsBean
 
 open class NewsFragment : BaseLazyFragment(), INewsView {
 
@@ -103,11 +103,11 @@ open class NewsFragment : BaseLazyFragment(), INewsView {
     }
 
     override fun onNewsFetched(resp: BaseBean<List<NewsBean>>) {
-        Handler().postDelayed({ refreshLayout.isRefreshing = false }, 666)
         when (page) {
             0 -> adapter!!.clearData()
         }
         adapter!!.addData(resp.newsData)
+        refreshLayout.isRefreshing = false
     }
 
     override fun onNewsFetchedFailed(throwable: Throwable) = Unit

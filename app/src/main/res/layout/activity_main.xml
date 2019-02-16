@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="news.browser.module.home.MainActivity">
+    tools:context="news.browser.page.home.MainActivity">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tabGravity="fill"
         app:tabIndicatorColor="#00BFA5"
-        app:tabMode="fixed"
+        app:tabMode="scrollable"
         app:tabTextColor="@android:color/white" />
 
     <androidx.viewpager.widget.ViewPager

@@ -1,4 +1,4 @@
-package news.browser.module.news
+package news.browser.page.news
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_news.view.*
 import news.browser.R
-import news.browser.module.news.model.NewsBean
-import news.browser.module.web.WebActivity
+import news.browser.model.NewsBean
+import news.browser.page.web.WebActivity
 
 class NewsAdapter(private var news: ArrayList<NewsBean>) :
         RecyclerView.Adapter<NewsAdapter.BaseViewHolder>() {

@@ -1,8 +1,7 @@
-package news.browser.module.web
+package news.browser.page.web
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import android.webkit.WebResourceRequest
 import android.webkit.WebSettings

@@ -1,8 +1,8 @@
-package news.browser.module.home
+package news.browser.page.home
 
 import androidx.fragment.app.Fragment
-import news.browser.common.net.IMainPage
-import news.browser.module.news.NewsFragment
+import news.browser.utils.IMainPage
+import news.browser.page.news.NewsFragment
 
 class MainPresenter(private val view: IMainPage) {
     fun fetchFragments(num: Int) {
