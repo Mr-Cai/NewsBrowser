@@ -35,9 +35,7 @@ object RetrofitUtils {
         for (filed in command.javaClass.declaredFields) {
             val isAccess = filed.isAccessible
             filed.isAccessible = true
-            when {
-                filed.get(command) != null -> list.add(MapFiled(filed.name, filed.get(command).toString()))
-            }
+            list.add(MapFiled(filed.name, filed.get(command).toString()))
             filed.isAccessible = isAccess
         }
         return list
