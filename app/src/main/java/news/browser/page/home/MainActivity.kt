@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 import news.browser.R
+import news.browser.utils.Constant
 import news.browser.utils.IMainPage
 
 class MainActivity : AppCompatActivity(), IMainPage {
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity(), IMainPage {
     private fun initData() {
         presenter = MainPresenter(this)
         fragments = ArrayList()
-        presenter.fetchFragments(8)
+        presenter.fetchFragments(Constant.URLS.size)
     }
 
     private fun initView() {

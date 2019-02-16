@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_news.*
 import news.browser.R
 import news.browser.base.BaseLazyFragment
-import news.browser.utils.INewsView
 import news.browser.model.BaseBean
 import news.browser.model.NewsBean
+import news.browser.utils.INewsView
 
 open class NewsFragment : BaseLazyFragment(), INewsView {
 
@@ -24,9 +24,9 @@ open class NewsFragment : BaseLazyFragment(), INewsView {
     companion object {
         fun newInstance(type: Int): NewsFragment {
             val fragment = NewsFragment()
-            val bd = Bundle()
-            bd.putInt("type", type)
-            fragment.arguments = bd
+            val bundle = Bundle()
+            bundle.putInt("type", type)
+            fragment.arguments = bundle
             return fragment
         }
     }

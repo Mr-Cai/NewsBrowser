@@ -33,10 +33,8 @@ object RetrofitUtils {
     private fun createListFiled(command: NewsCommand): List<MapFiled> {
         val list = ArrayList<MapFiled>()
         for (filed in command.javaClass.declaredFields) {
-            val isAccess = filed.isAccessible
             filed.isAccessible = true
             list.add(MapFiled(filed.name, filed.get(command).toString()))
-            filed.isAccessible = isAccess
         }
         return list
     }

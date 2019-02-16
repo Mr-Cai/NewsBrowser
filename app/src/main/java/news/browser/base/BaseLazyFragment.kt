@@ -10,7 +10,7 @@ open class BaseLazyFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState:
     Bundle?) = inflater.inflate(getContentId(), container, false)!!
 
-    open fun getContentId(): Int = 0
+    open fun getContentId() = 0
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         when {
