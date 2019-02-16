@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_news.*
 import news.browser.R
 import news.browser.base.BaseLazyFragment
+import news.browser.common.net.INewsView
 import news.browser.module.news.model.BaseBean
 import news.browser.module.news.model.NewsBean
 

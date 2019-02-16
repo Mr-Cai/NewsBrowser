@@ -31,9 +31,10 @@ class NewsAdapter(private var news: ArrayList<NewsBean>) :
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         val context = holder.itemView.context
         val itemView = holder.itemView
-        itemView.news_title.text = news[position].title
-        itemView.news_time.text = news[position].updateTime
-        Glide.with(context).load(news[position].picUrl).into(itemView.news_head_img)
+        itemView.descTxT.text = news[position].description
+        itemView.titleTxT.text = news[position].title
+        itemView.updateTimeTxT.text = news[position].updateTime
+        Glide.with(context).load(news[position].picUrl).into(itemView.coverPic)
         holder.itemView.setOnClickListener {
             val intent = Intent(context, WebActivity::class.java)
             intent.putExtra("url", news[position].url)

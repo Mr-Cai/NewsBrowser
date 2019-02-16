@@ -5,10 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 import news.browser.R
+import news.browser.common.net.IMainPage
 
-class MainActivity : AppCompatActivity(), MainActivityView {
+class MainActivity : AppCompatActivity(), IMainPage {
 
-    private lateinit var adapter: HomeVpAdapter
+    private lateinit var adapter: ViewPagerAdapter
     private lateinit var fragments: List<Fragment>
     private lateinit var presenter: MainPresenter
 
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     }
 
     private fun initView() {
-        adapter = HomeVpAdapter(supportFragmentManager, fragments)
+        adapter = ViewPagerAdapter(supportFragmentManager, fragments)
         vp.adapter = adapter
         vp.offscreenPageLimit = 5
         tabLayout.setupWithViewPager(vp)

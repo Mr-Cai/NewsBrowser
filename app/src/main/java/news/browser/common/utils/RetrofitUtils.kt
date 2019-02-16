@@ -13,7 +13,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitUtils {
-    private lateinit var retrofit: Retrofit
     private val okHttp: OkHttpClient
         get() {
             val okHttpClientBuilder = OkHttpClient.Builder()
@@ -38,16 +37,6 @@ object RetrofitUtils {
             return okHttpClientBuilder.build()
         }
 
-    private fun getRetrofit(): Retrofit {
-        retrofit = Retrofit.Builder()
-                .baseUrl(Constant.baseUrl)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(okHttp)
-                .build()
-        return retrofit
-    }
-
     private fun createMaps(list: List<MapFiled>): Map<String, String> {
         val map = HashMap<String, String>()
         (0 until list.size).map { list[it] }.forEach { map[it.getKey()] = it.getValue() }
@@ -67,6 +56,11 @@ object RetrofitUtils {
         return list
     }
 
-    fun fetchNews(path: String, cmd: NewsCommand) = getRetrofit().create(NetApi::class.java)
+    fun fetchNews(path: String, cmd: NewsCommand) = Retrofit.Builder()
+            .baseUrl(Constant.baseUrl)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttp)
+            .build().create(NetApi::class.java)
             .fetchNews(path, createMaps(createListFiled(cmd)))
 }
