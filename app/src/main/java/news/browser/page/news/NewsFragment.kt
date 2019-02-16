@@ -1,7 +1,6 @@
 package news.browser.page.news
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -48,7 +47,7 @@ open class NewsFragment : BaseLazyFragment(), INewsView {
             else -> {
                 initData()
                 initViews()
-                mPresenter!!.fetchNews(newsType, page, num)
+                mPresenter!!.displayNews(newsType, page, num)
                 isPrepared = false
             }
         }
@@ -70,7 +69,7 @@ open class NewsFragment : BaseLazyFragment(), INewsView {
                         !isRefresh && totalItemCount <= lastVisibleItem + 1 && totalItemCount >
                                 visibleItemCount && visibleItemCount > 0 -> {
                             this@NewsFragment.page++
-                            mPresenter!!.fetchNews(newsType, page, num)
+                            mPresenter!!.displayNews(newsType, page, num)
                         }
                     }
                 }
@@ -90,7 +89,7 @@ open class NewsFragment : BaseLazyFragment(), INewsView {
         refreshLayout.setOnRefreshListener {
             refreshLayout.isRefreshing = true
             page = 0
-            mPresenter!!.fetchNews(newsType, page, num)
+            mPresenter!!.displayNews(newsType, page, num)
         }
     }
 

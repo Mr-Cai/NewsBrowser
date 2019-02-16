@@ -8,7 +8,7 @@ import news.browser.utils.Constant
 import news.browser.model.NewsCommand
 
 class NewsPresenter(private val view: INewsView) {
-    fun fetchNews(newType: Int, page: Int, num: Int) {
+    fun displayNews(newType: Int, page: Int, num: Int) {
         RetrofitUtils.fetchNews(Constant.URLS[newType], NewsCommand(page, num))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())

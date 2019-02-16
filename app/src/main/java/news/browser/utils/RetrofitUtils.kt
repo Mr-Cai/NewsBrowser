@@ -1,7 +1,6 @@
 package news.browser.utils
 
 import android.util.Log
-import news.browser.BuildConfig
 import news.browser.model.MapFiled
 import news.browser.model.NewsCommand
 import okhttp3.OkHttpClient
@@ -13,31 +12,21 @@ import java.util.concurrent.TimeUnit
 object RetrofitUtils {
     private val okHttp: OkHttpClient
         get() {
-            val okHttpClientBuilder = OkHttpClient.Builder()
-            when {
-                BuildConfig.DEBUG -> {
-                    okHttpClientBuilder.apply {
-                        connectTimeout(5, TimeUnit.SECONDS)
-                        readTimeout(5, TimeUnit.SECONDS)
-                        writeTimeout(5, TimeUnit.SECONDS)
-                        addInterceptor { chain ->
-                            Log.i("新闻接口", chain.request().toString())
-                            chain.proceed(chain.request())
-                        }
-                    }
-                }
-                else -> okHttpClientBuilder.apply {
-                    connectTimeout(5, TimeUnit.SECONDS)
-                    readTimeout(5, TimeUnit.SECONDS)
-                    writeTimeout(5, TimeUnit.SECONDS)
+            val okHttpBuilder = OkHttpClient.Builder().apply {
+                connectTimeout(3, TimeUnit.SECONDS)
+                readTimeout(3, TimeUnit.SECONDS)
+                writeTimeout(3, TimeUnit.SECONDS)
+                addInterceptor { chain ->
+                    Log.i("新闻接口", chain.request().toString())
+                    chain.proceed(chain.request())
                 }
             }
-            return okHttpClientBuilder.build()
+            return okHttpBuilder.build()
         }
 
     private fun createMaps(list: List<MapFiled>): Map<String, String> {
         val map = HashMap<String, String>()
-        (0 until list.size).map { list[it] }.forEach { map[it.getKey()] = it.getValue() }
+        (0 until list.size).map { list[it] }.forEach { map[it.key] = it.value }
         return map
     }
 
@@ -60,6 +49,6 @@ object RetrofitUtils {
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttp)
             .build().create(NetApi::class.java)
-            .fetchNews(path, createMaps(createListFiled(cmd)))
+            .observableNews(path, createMaps(createListFiled(cmd)))
 }
 

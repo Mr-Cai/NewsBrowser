@@ -10,7 +10,7 @@ import retrofit2.http.QueryMap
 
 interface NetApi {
     @GET("{path}")
-    fun fetchNews(
+    fun observableNews(
             @Path("path") path: String,
             @QueryMap maps: Map<String, String>
     ): Observable<BaseBean<List<NewsBean>>>

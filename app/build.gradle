@@ -22,15 +22,16 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version" //科特林标准库
-    implementation 'androidx.appcompat:appcompat:1.1.0-alpha01' //安卓扩展兼容包
-    implementation 'androidx.core:core-ktx:1.1.0-alpha03' // 科特林火箭背包
-    implementation 'com.google.android.material:material:1.1.0-alpha02' //谷歌材料库
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha02' //安卓扩展兼容包
+    implementation 'androidx.core:core-ktx:1.1.0-alpha04' // 科特林火箭背包
+    implementation 'com.google.android.material:material:1.1.0-alpha03' //谷歌材料库
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3' //约束布局
+
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.11'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     implementation 'com.xwray:groupie:2.3.0' //追星族适配器
 }
