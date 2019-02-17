@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.fragment_news.*
 import news.browser.R
 import news.browser.base.BaseLazyFragment
@@ -14,12 +16,12 @@ import news.browser.utils.INewsView
 open class NewsFragment : BaseLazyFragment(), INewsView {
 
     var newsType: Int = 0
-    var mPresenter: NewsPresenter? = null
+    var newsPresenter: NewsPresenter? = null
     var page: Int = 0
     var num: Int = 10
-    private var adapter: NewsAdapter? = null
     private var dataList = ArrayList<NewsBean>()
     var isRefresh: Boolean = false
+    private val newsAdapter = GroupAdapter<ViewHolder>()
 
     companion object {
         fun newInstance(type: Int): NewsFragment {
@@ -47,7 +49,7 @@ open class NewsFragment : BaseLazyFragment(), INewsView {
             else -> {
                 initData()
                 initViews()
-                mPresenter!!.displayNews(newsType, page, num)
+                newsPresenter!!.displayNews(newsType, page, num)
                 isPrepared = false
             }
         }
@@ -59,7 +61,7 @@ open class NewsFragment : BaseLazyFragment(), INewsView {
     var firstVisibleItem: Int = 0
     private fun initViews() {
         newsRecycler.layoutManager = LinearLayoutManager(activity)
-        newsRecycler.adapter = adapter
+        newsRecycler.adapter = newsAdapter
         newsRecycler.itemAnimator!!.addDuration = 0
         val mScrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -69,7 +71,7 @@ open class NewsFragment : BaseLazyFragment(), INewsView {
                         !isRefresh && totalItemCount <= lastVisibleItem + 1 && totalItemCount >
                                 visibleItemCount && visibleItemCount > 0 -> {
                             this@NewsFragment.page++
-                            mPresenter!!.displayNews(newsType, page, num)
+                            newsPresenter!!.displayNews(newsType, page, num)
                         }
                     }
                 }
@@ -89,23 +91,24 @@ open class NewsFragment : BaseLazyFragment(), INewsView {
         refreshLayout.setOnRefreshListener {
             refreshLayout.isRefreshing = true
             page = 0
-            mPresenter!!.displayNews(newsType, page, num)
+            newsPresenter!!.displayNews(newsType, page, num)
         }
     }
 
     private fun initData() {
         refreshLayout.isRefreshing = true
         newsType = arguments!!.getInt("type")
-        mPresenter = NewsPresenter(this)
-        adapter = NewsAdapter(dataList)
+        newsPresenter = NewsPresenter(this)
         page = 0
     }
 
-    override fun onNewsFetched(resp: BaseBean<List<NewsBean>>) {
+    override fun onNewsFetched(response: BaseBean<List<NewsBean>>) {
         when (page) {
-            0 -> adapter!!.clearData()
+            0 -> newsAdapter.clear()
         }
-        adapter!!.addData(resp.newsData)
+        response.newsData.forEach {
+            newsAdapter.add(NewsItem(it))
+        }
         refreshLayout.isRefreshing = false
     }
 

@@ -17,7 +17,7 @@ interface NetApi {
 }
 
 interface INewsView {
-    fun onNewsFetched(resp: BaseBean<List<NewsBean>>)
+    fun onNewsFetched(response: BaseBean<List<NewsBean>>)
     fun onNewsFetchedFailed(throwable: Throwable)
 }
 

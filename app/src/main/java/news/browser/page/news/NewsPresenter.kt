@@ -12,7 +12,7 @@ class NewsPresenter(private val view: INewsView) {
         RetrofitUtils.fetchNews(Constant.URLS[newType], NewsCommand(page, num))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe({ resp -> view.onNewsFetched(resp) },
+                .subscribe({ response -> view.onNewsFetched(response) },
                         { t -> view.onNewsFetchedFailed(t) }).isDisposed
     }
 }

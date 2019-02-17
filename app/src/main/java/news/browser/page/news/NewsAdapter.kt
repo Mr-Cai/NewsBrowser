@@ -26,7 +26,6 @@ class NewsAdapter(private var news: ArrayList<NewsBean>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = BaseViewHolder(LayoutInflater
             .from(parent.context).inflate(R.layout.item_news, parent, false))
-
     override fun getItemCount() = news.size
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
