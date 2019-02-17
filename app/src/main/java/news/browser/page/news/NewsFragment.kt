@@ -14,29 +14,15 @@ import news.browser.model.NewsBean
 import news.browser.utils.INewsView
 
 open class NewsFragment : BaseLazyFragment(), INewsView {
-
-    var newsType: Int = 0
+    var newsType = 0
     var newsPresenter: NewsPresenter? = null
-    var page: Int = 0
-    var num: Int = 10
+    var page = 0
+    var num = 10
     private var dataList = ArrayList<NewsBean>()
     var isRefresh: Boolean = false
     private val newsAdapter = GroupAdapter<ViewHolder>()
-
-    companion object {
-        fun newInstance(type: Int): NewsFragment {
-            val fragment = NewsFragment()
-            val bundle = Bundle()
-            bundle.putInt("type", type)
-            fragment.arguments = bundle
-            return fragment
-        }
-    }
-
     private var isPrepared: Boolean = false
-
     override fun getContentId() = R.layout.fragment_news
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         isPrepared = true
@@ -55,15 +41,14 @@ open class NewsFragment : BaseLazyFragment(), INewsView {
         }
     }
 
-    var totalItemCount: Int = 0
-    var lastVisibleItem: Int = 0
-    var visibleItemCount: Int = 0
-    var firstVisibleItem: Int = 0
+    var totalItemCount = 0
+    var lastVisibleItem = 0
+    var visibleItemCount = 0
+    var firstVisibleItem = 0
     private fun initViews() {
         newsRecycler.layoutManager = LinearLayoutManager(activity)
         newsRecycler.adapter = newsAdapter
-        newsRecycler.itemAnimator!!.addDuration = 0
-        val mScrollListener = object : RecyclerView.OnScrollListener() {
+        newsRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 when (newState) {
@@ -86,8 +71,7 @@ open class NewsFragment : BaseLazyFragment(), INewsView {
                 visibleItemCount = layoutManager.childCount
             }
 
-        }
-        newsRecycler.addOnScrollListener(mScrollListener)
+        })
         refreshLayout.setOnRefreshListener {
             refreshLayout.isRefreshing = true
             page = 0
@@ -113,4 +97,14 @@ open class NewsFragment : BaseLazyFragment(), INewsView {
     }
 
     override fun onNewsFetchedFailed(throwable: Throwable) = Unit
+
+    companion object {
+        fun newInstance(type: Int): NewsFragment {
+            val fragment = NewsFragment()
+            val bundle = Bundle()
+            bundle.putInt("type", type)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
 }
